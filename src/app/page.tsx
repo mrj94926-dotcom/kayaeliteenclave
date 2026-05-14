@@ -1,18 +1,20 @@
 import { Hero } from "@/components/home/Hero";
-import Storytelling from "@/components/home/Storytelling";
-import FloorPlanShowcase from "@/components/home/FloorPlanShowcase";
+import MasterplanSection from "@/components/home/MasterplanSection";
+import VillasSection from "@/components/home/VillasSection";
 import Amenities from "@/components/home/Amenities";
-import { InvestmentOpportunity } from "@/components/home/InvestmentOpportunity";
+import InvestmentROISection from "@/components/home/InvestmentROISection";
+import GallerySection from "@/components/home/GallerySection";
 import { LeadGenerationForm } from "@/components/home/LeadGenerationForm";
 
 export default function Home() {
   return (
     <>
       <Hero />
-      <Storytelling />
-      <FloorPlanShowcase />
+      <MasterplanSection />
+      <VillasSection />
       <Amenities />
-      <InvestmentOpportunity />
+      <InvestmentROISection />
+      <GallerySection />
       <LeadGenerationForm />
     </>
   );

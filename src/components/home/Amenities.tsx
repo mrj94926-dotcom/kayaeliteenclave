@@ -63,7 +63,7 @@ export default function Amenities() {
   ];
 
   return (
-    <section className="py-24 md:py-40 relative overflow-hidden" id="amenities">
+    <section className="py-24 md:py-40 relative overflow-hidden scroll-mt-20" id="amenities">
       {/* Background Image with Overlay */}
       <div className="absolute inset-0 z-0">
         <img 

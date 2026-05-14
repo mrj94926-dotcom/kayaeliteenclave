@@ -29,11 +29,11 @@ export function Navbar() {
   const logoInvertClass = !showBackground ? "brightness-0 invert" : "";
 
   const navLinks = [
-    { name: "Masterplan", href: "#story" },
-    { name: "Villas", href: "#floorplans" },
+    { name: "Masterplan", href: "#masterplan" },
+    { name: "Villas", href: "#villas" },
     { name: "Amenities", href: "#amenities" },
     { name: "Investment ROI", href: "#investment" },
-    { name: "Gallery", href: "/gallery" },
+    { name: "Gallery", href: "#gallery" },
   ];
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
