@@ -67,14 +67,14 @@ export default async function AdminDashboard() {
       {/* Page Title & Actions */}
       <div className="flex justify-between items-end">
         <div>
-          <h1 className="text-3xl font-serif text-white mb-2">Executive Overview</h1>
-          <p className="text-slate-500 text-sm">Welcome back, Admin. Here is what is happening with Kaya Elite today.</p>
+          <h1 className="text-4xl font-serif text-[#0F172A] tracking-tight mb-2">Portfolio Intelligence</h1>
+          <p className="text-slate-500 text-sm font-medium">Strategic overview of the Kaya Elite Enclave asset performance.</p>
         </div>
         <div className="flex gap-4">
-          <button className="px-5 py-2.5 bg-slate-900 border border-slate-800 rounded-xl text-sm font-bold tracking-wide hover:bg-slate-800 transition-all">Export Report</button>
-          <button className="px-5 py-2.5 bg-primary text-white rounded-xl text-sm font-bold tracking-wide hover:bg-primary/90 transition-all shadow-lg shadow-primary/20 flex items-center gap-2">
-            <UserPlus size={16} />
-            Add New Lead
+          <button className="px-6 py-3 bg-white border border-slate-200 rounded-2xl text-xs font-bold tracking-widest uppercase text-slate-500 hover:bg-slate-50 transition-all shadow-sm">Export CRM Data</button>
+          <button className="px-6 py-3 bg-[#D4AF37] text-white rounded-2xl text-xs font-bold tracking-widest uppercase hover:bg-[#B8962D] transition-all shadow-lg shadow-[#D4AF37]/20 flex items-center gap-3">
+            <UserPlus size={18} />
+            Acquire Prospect
           </button>
         </div>
       </div>
@@ -82,25 +82,25 @@ export default async function AdminDashboard() {
       {/* Stats Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {stats.map((stat, i) => (
-          <div key={stat.label} className="bg-slate-900/40 border border-slate-800 p-8 rounded-3xl hover:border-primary/30 transition-all group relative overflow-hidden">
-            <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
-              <stat.icon size={80} className="text-primary" />
+          <div key={stat.label} className="bg-white border border-slate-200 p-8 rounded-3xl hover:border-[#D4AF37]/30 transition-all group relative overflow-hidden shadow-[0_2px_12px_rgba(0,0,0,0.02)]">
+            <div className="absolute top-0 right-0 p-4 opacity-[0.03] group-hover:opacity-[0.08] transition-opacity">
+              <stat.icon size={100} className="text-[#D4AF37]" />
             </div>
             <div className="flex justify-between items-start mb-6">
-              <div className="p-3.5 rounded-2xl bg-slate-800/50 text-primary border border-slate-700/50 group-hover:bg-primary group-hover:text-white transition-all duration-500">
+              <div className="p-3.5 rounded-2xl bg-slate-50 text-[#D4AF37] border border-slate-100 group-hover:bg-[#D4AF37] group-hover:text-white transition-all duration-500 shadow-sm">
                 <stat.icon size={22} />
               </div>
-              <div className={`flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-black uppercase tracking-wider ${
-                stat.trend === "up" ? "bg-emerald-500/10 text-emerald-500" : "bg-red-500/10 text-red-500"
+              <div className={`flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider ${
+                stat.trend === "up" ? "bg-emerald-50 text-emerald-600 border border-emerald-100" : "bg-red-50 text-red-600 border border-red-100"
               }`}>
                 {stat.change}
                 {stat.trend === "up" ? <ArrowUpRight size={12} /> : <ArrowDownRight size={12} />}
               </div>
             </div>
             <div className="space-y-1">
-              <h3 className="text-4xl font-serif text-white">{stat.value}</h3>
-              <p className="text-xs font-bold text-slate-500 uppercase tracking-widest">{stat.label}</p>
-              <p className="text-[10px] text-slate-600 italic mt-2">{stat.description}</p>
+              <h3 className="text-4xl font-serif text-[#0F172A]">{stat.value}</h3>
+              <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">{stat.label}</p>
+              <p className="text-[10px] text-slate-400 font-medium mt-3 italic">{stat.description}</p>
             </div>
           </div>
         ))}
@@ -109,38 +109,38 @@ export default async function AdminDashboard() {
       {/* Main Charts & Lead Intelligence */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Lead Growth Chart */}
-        <div className="lg:col-span-2 bg-slate-900/40 border border-slate-800 p-8 rounded-3xl">
+        <div className="lg:col-span-2 bg-white border border-slate-200 p-8 rounded-3xl shadow-sm">
           <div className="flex justify-between items-center mb-10">
             <div>
-              <h3 className="text-xl font-serif text-white mb-1">Lead Generation Performance</h3>
-              <p className="text-xs text-slate-500 uppercase tracking-widest font-bold">Monthly growth analytics</p>
+              <h3 className="text-2xl font-serif text-[#0F172A] mb-1">Acquisition Velocity</h3>
+              <p className="text-[10px] text-slate-400 uppercase tracking-[0.2em] font-black">Monthly lead accumulation metrics</p>
             </div>
-            <div className="flex items-center gap-3 bg-slate-800/50 p-1 rounded-xl border border-slate-700/50">
-              <button className="px-4 py-1.5 rounded-lg text-xs font-bold bg-primary text-white transition-all shadow-md">12M</button>
-              <button className="px-4 py-1.5 rounded-lg text-xs font-bold text-slate-400 hover:text-white transition-all">6M</button>
-              <button className="px-4 py-1.5 rounded-lg text-xs font-bold text-slate-400 hover:text-white transition-all">30D</button>
+            <div className="flex items-center gap-2 bg-slate-50 p-1.5 rounded-2xl border border-slate-100">
+              <button className="px-5 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest bg-white text-[#D4AF37] shadow-sm border border-slate-200 transition-all">12M</button>
+              <button className="px-5 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-[#0F172A] transition-all">6M</button>
+              <button className="px-5 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-[#0F172A] transition-all">30D</button>
             </div>
           </div>
           <LeadGrowthChart />
         </div>
 
         {/* Lead Source Intelligence */}
-        <div className="bg-slate-900/40 border border-slate-800 p-8 rounded-3xl">
-          <h3 className="text-xl font-serif text-white mb-1">Source Intelligence</h3>
-          <p className="text-xs text-slate-500 uppercase tracking-widest font-bold mb-10">Channel distribution</p>
+        <div className="bg-white border border-slate-200 p-8 rounded-3xl shadow-sm">
+          <h3 className="text-2xl font-serif text-[#0F172A] mb-1">Source Distribution</h3>
+          <p className="text-[10px] text-slate-400 uppercase tracking-[0.2em] font-black mb-10">Intelligence by channel</p>
           <ConversionPieChart />
           <div className="mt-8 space-y-4">
             {[
-              { name: "Direct Search", value: "40%", color: "bg-primary" },
-              { name: "Social Referral", value: "25%", color: "bg-slate-700" },
-              { name: "External Portals", value: "35%", color: "bg-slate-800" },
+              { name: "Organic Search", value: "40%", color: "bg-[#D4AF37]" },
+              { name: "Direct Referral", value: "25%", color: "bg-slate-700" },
+              { name: "Partner Portals", value: "35%", color: "bg-slate-200" },
             ].map((source) => (
-              <div key={source.name} className="flex items-center justify-between">
+              <div key={source.name} className="flex items-center justify-between p-3 rounded-xl hover:bg-slate-50 transition-all border border-transparent hover:border-slate-100">
                 <div className="flex items-center gap-3">
-                  <div className={`w-2 h-2 rounded-full ${source.color}`} />
-                  <span className="text-xs text-slate-400">{source.name}</span>
+                  <div className={`w-2.5 h-2.5 rounded-full ${source.color} shadow-sm`} />
+                  <span className="text-xs font-bold text-slate-600">{source.name}</span>
                 </div>
-                <span className="text-xs font-bold text-white">{source.value}</span>
+                <span className="text-xs font-black text-[#0F172A]">{source.value}</span>
               </div>
             ))}
           </div>
@@ -149,71 +149,71 @@ export default async function AdminDashboard() {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Recent Lead Pipeline */}
-        <div className="bg-slate-900/40 border border-slate-800 p-8 rounded-3xl">
+        <div className="bg-white border border-slate-200 p-8 rounded-3xl shadow-sm">
           <div className="flex justify-between items-center mb-8">
             <div>
-              <h3 className="text-xl font-serif text-white mb-1">New Pipeline Leads</h3>
-              <p className="text-xs text-slate-500 uppercase tracking-widest font-bold">Recent registrations</p>
+              <h3 className="text-2xl font-serif text-[#0F172A] mb-1">Pipeline Activity</h3>
+              <p className="text-[10px] text-slate-400 uppercase tracking-[0.2em] font-black">Latest high-value registrations</p>
             </div>
-            <Link href="/admin/leads" className="text-primary text-[10px] uppercase tracking-[0.2em] font-bold hover:underline flex items-center gap-2">
-              View Full List <ChevronRight size={14} />
+            <Link href="/admin/leads" className="text-[#D4AF37] text-[10px] uppercase tracking-[0.2em] font-black hover:underline flex items-center gap-2 group">
+              Intelligence Center <ChevronRight size={14} className="group-hover:translate-x-1 transition-transform" />
             </Link>
           </div>
           <div className="space-y-4">
             {recentLeads.length > 0 ? recentLeads.map((lead: any) => (
-              <div key={lead.id} className="group flex items-center justify-between p-5 rounded-2xl bg-slate-900/60 border border-slate-800/50 hover:border-primary/20 hover:bg-slate-800/50 transition-all cursor-pointer">
+              <div key={lead.id} className="group flex items-center justify-between p-5 rounded-2xl bg-slate-50 border border-transparent hover:border-[#D4AF37]/20 hover:bg-white hover:shadow-xl hover:shadow-[#D4AF37]/5 transition-all cursor-pointer">
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-slate-800 to-slate-900 border border-slate-700/50 flex items-center justify-center font-bold text-primary text-lg group-hover:scale-110 transition-transform">
+                  <div className="w-12 h-12 rounded-xl bg-white border border-slate-200 shadow-sm flex items-center justify-center font-black text-[#D4AF37] text-lg group-hover:scale-110 transition-all duration-500">
                     {lead.name?.charAt(0) || "L"}
                   </div>
                   <div>
-                    <p className="text-sm font-bold text-white group-hover:text-primary transition-colors">{lead.name}</p>
-                    <p className="text-[10px] text-slate-500 uppercase tracking-widest mt-1">{lead.interested_property || "Elite Villa"}</p>
+                    <p className="text-sm font-bold text-[#0F172A] group-hover:text-[#D4AF37] transition-colors">{lead.name}</p>
+                    <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest mt-1.5">{lead.interested_property || "Elite Portfolio"}</p>
                   </div>
                 </div>
                 <div className="text-right">
-                  <div className="px-3 py-1 bg-primary/10 text-primary text-[9px] uppercase tracking-widest font-bold rounded-full mb-2">New Lead</div>
-                  <div className="flex items-center gap-1.5 text-[10px] text-slate-600 font-bold">
-                    <Clock size={12} /> {new Date(lead.created_at).toLocaleDateString()}
+                  <div className="px-3 py-1 bg-[#D4AF37]/10 text-[#D4AF37] text-[9px] uppercase tracking-widest font-black rounded-full mb-2 border border-[#D4AF37]/20">Verified Lead</div>
+                  <div className="flex items-center gap-1.5 text-[10px] text-slate-400 font-bold uppercase tracking-wider">
+                    <Clock size={12} className="text-[#D4AF37]" /> {new Date(lead.created_at).toLocaleDateString()}
                   </div>
                 </div>
               </div>
             )) : (
-              <div className="text-center text-slate-500 py-12 bg-slate-900/40 rounded-2xl border border-dashed border-slate-800">
-                <Users size={32} className="mx-auto mb-4 opacity-20" />
-                <p className="text-sm">No new pipeline leads identified.</p>
+              <div className="text-center text-slate-300 py-16 bg-slate-50 rounded-2xl border border-dashed border-slate-200">
+                <Users size={40} className="mx-auto mb-4 opacity-10" />
+                <p className="text-xs font-black uppercase tracking-widest">No active pipeline registrations.</p>
               </div>
             )}
           </div>
         </div>
 
         {/* Activity Timeline */}
-        <div className="bg-slate-900/40 border border-slate-800 p-8 rounded-3xl">
-          <h3 className="text-xl font-serif text-white mb-1">CRM Activity Log</h3>
-          <p className="text-xs text-slate-500 uppercase tracking-widest font-bold mb-10">System timeline</p>
-          <div className="space-y-8 relative before:absolute before:left-[11px] before:top-2 before:bottom-2 before:w-[2px] before:bg-slate-800">
+        <div className="bg-white border border-slate-200 p-8 rounded-3xl shadow-sm">
+          <h3 className="text-2xl font-serif text-[#0F172A] mb-1">Audit Log</h3>
+          <p className="text-[10px] text-slate-400 uppercase tracking-[0.2em] font-black mb-10">Strategic system events</p>
+          <div className="space-y-8 relative before:absolute before:left-[11px] before:top-2 before:bottom-2 before:w-[2px] before:bg-slate-100">
             {[
-              { time: "2m ago", event: "New Lead Submission", desc: "Siddharth Verma submitted interest for 4BHK Villa.", type: "lead" },
-              { time: "45m ago", event: "Site Visit Scheduled", desc: "Meeting scheduled with Dr. Rajesh for Sunday.", type: "appointment" },
-              { time: "2h ago", event: "New Subscriber", desc: "Newsletter signup via footer contact form.", type: "mail" },
-              { time: "5h ago", event: "Lead Status Update", desc: "Priya Malhotra marked as 'Hot Lead'.", type: "update" },
+              { time: "2m ago", event: "Inquiry Capture", desc: "Siddharth Verma submitted interest for 4BHK Waterfront.", type: "lead" },
+              { time: "45m ago", event: "Booking Confirmation", desc: "Villa tour scheduled with Dr. Rajesh for Sunday.", type: "appointment" },
+              { time: "2h ago", event: "Portfolio Subscription", desc: "Investor newsletter signup via primary gateway.", type: "mail" },
+              { time: "5h ago", event: "Lead Status Elevation", desc: "Priya Malhotra successfully marked as 'Priority Lead'.", type: "update" },
             ].map((activity, i) => (
-              <div key={i} className="relative pl-10">
-                <div className="absolute left-0 top-1 w-6 h-6 rounded-full bg-slate-900 border-4 border-slate-800 flex items-center justify-center z-10">
-                  <div className={`w-1.5 h-1.5 rounded-full ${i === 0 ? "bg-primary animate-pulse" : "bg-slate-600"}`} />
+              <div key={i} className="relative pl-10 group">
+                <div className="absolute left-0 top-1 w-6 h-6 rounded-full bg-white border-2 border-slate-100 flex items-center justify-center z-10 shadow-sm group-hover:border-[#D4AF37] transition-colors">
+                  <div className={`w-2 h-2 rounded-full ${i === 0 ? "bg-[#D4AF37] animate-pulse" : "bg-slate-300"}`} />
                 </div>
                 <div>
                   <div className="flex items-center justify-between mb-1">
-                    <h4 className="text-sm font-bold text-white">{activity.event}</h4>
-                    <span className="text-[10px] text-slate-500 font-bold uppercase tracking-widest">{activity.time}</span>
+                    <h4 className="text-sm font-bold text-[#0F172A] group-hover:text-[#D4AF37] transition-colors">{activity.event}</h4>
+                    <span className="text-[10px] text-slate-400 font-black uppercase tracking-widest">{activity.time}</span>
                   </div>
-                  <p className="text-xs text-slate-500 leading-relaxed font-light">{activity.desc}</p>
+                  <p className="text-xs text-slate-500 leading-relaxed font-medium">{activity.desc}</p>
                 </div>
               </div>
             ))}
           </div>
-          <button className="w-full mt-10 py-3 bg-slate-800/50 border border-slate-700/50 rounded-xl text-[10px] uppercase tracking-widest font-bold text-slate-400 hover:bg-slate-800 hover:text-white transition-all">
-            View Full Audit Trail
+          <button className="w-full mt-10 py-4 bg-slate-50 border border-slate-100 rounded-2xl text-[10px] uppercase tracking-widest font-black text-slate-400 hover:bg-[#0F172A] hover:text-white transition-all shadow-sm">
+            Access Complete Audit Trail
           </button>
         </div>
       </div>

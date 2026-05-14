@@ -33,39 +33,41 @@ export function LeadGrowthChart() {
         <AreaChart data={data}>
           <defs>
             <linearGradient id="colorLeads" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="5%" stopColor="#d4af37" stopOpacity={0.3}/>
-              <stop offset="95%" stopColor="#d4af37" stopOpacity={0}/>
+              <stop offset="5%" stopColor="#D4AF37" stopOpacity={0.15}/>
+              <stop offset="95%" stopColor="#D4AF37" stopOpacity={0}/>
             </linearGradient>
           </defs>
-          <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#1e293b" />
+          <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#E2E8F0" />
           <XAxis 
             dataKey="name" 
             axisLine={false} 
             tickLine={false} 
-            tick={{ fill: '#64748b', fontSize: 12 }}
+            tick={{ fill: '#64748B', fontSize: 11, fontWeight: 500 }}
             dy={10}
           />
           <YAxis 
             axisLine={false} 
             tickLine={false} 
-            tick={{ fill: '#64748b', fontSize: 12 }}
+            tick={{ fill: '#64748B', fontSize: 11, fontWeight: 500 }}
           />
           <Tooltip 
             contentStyle={{ 
-              backgroundColor: '#0f172a', 
-              border: '1px solid #1e293b',
-              borderRadius: '8px',
-              color: '#fff'
+              backgroundColor: '#FFFFFF', 
+              border: '1px solid #E2E8F0',
+              borderRadius: '12px',
+              boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.05)',
+              fontSize: '12px'
             }}
-            itemStyle={{ color: '#d4af37' }}
+            itemStyle={{ color: '#D4AF37', fontWeight: 600 }}
           />
           <Area 
             type="monotone" 
             dataKey="leads" 
-            stroke="#d4af37" 
+            stroke="#D4AF37" 
             fillOpacity={1} 
             fill="url(#colorLeads)" 
-            strokeWidth={3}
+            strokeWidth={2.5}
+            animationDuration={1500}
           />
         </AreaChart>
       </ResponsiveContainer>
@@ -75,10 +77,10 @@ export function LeadGrowthChart() {
 
 export function ConversionPieChart() {
   const pieData = [
-    { name: 'Social', value: 400, color: '#d4af37' },
-    { name: 'Search', value: 300, color: '#1e293b' },
-    { name: 'Referral', value: 300, color: '#334155' },
-    { name: 'Direct', value: 200, color: '#475569' },
+    { name: 'Social', value: 400, color: '#D4AF37' },
+    { name: 'Search', value: 300, color: '#1E293B' },
+    { name: 'Referral', value: 300, color: '#94A3B8' },
+    { name: 'Direct', value: 200, color: '#E2E8F0' },
   ];
 
   return (
@@ -91,17 +93,18 @@ export function ConversionPieChart() {
             type="category" 
             axisLine={false} 
             tickLine={false}
-            tick={{ fill: '#64748b', fontSize: 12 }}
+            tick={{ fill: '#64748B', fontSize: 11, fontWeight: 600 }}
           />
           <Tooltip 
-            cursor={{ fill: 'transparent' }}
+            cursor={{ fill: '#F8FAFC' }}
             contentStyle={{ 
-              backgroundColor: '#0f172a', 
-              border: '1px solid #1e293b',
-              borderRadius: '8px'
+              backgroundColor: '#FFFFFF', 
+              border: '1px solid #E2E8F0',
+              borderRadius: '10px',
+              fontSize: '11px'
             }}
           />
-          <Bar dataKey="value" radius={[0, 4, 4, 0]} barSize={20}>
+          <Bar dataKey="value" radius={[0, 4, 4, 0]} barSize={16}>
             {pieData.map((entry, index) => (
               <Cell key={`cell-${index}`} fill={entry.color} />
             ))}

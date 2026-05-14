@@ -15,9 +15,11 @@ import {
   ShieldCheck,
   Bell,
   Search,
-  ExternalLink
+  ExternalLink,
+  ChevronDown
 } from "lucide-react";
 import { SignOutButton } from "@/components/auth/SignOutButton";
+import NotificationCenter from "@/components/admin/NotificationCenter";
 
 export default async function AdminLayout({
   children,
@@ -57,27 +59,27 @@ export default async function AdminLayout({
   ];
 
   return (
-    <div className="flex min-h-screen bg-[#020617] text-slate-200 selection:bg-primary/30">
+    <div className="flex min-h-screen bg-[#F8FAFC] text-[#0F172A] selection:bg-primary/20 font-sans">
       {/* Sidebar */}
-      <aside className="w-72 bg-[#020617] border-r border-slate-800 flex flex-col fixed inset-y-0 z-50">
-        <div className="p-8 border-b border-slate-800/50">
+      <aside className="w-72 bg-white border-r border-slate-200 flex flex-col fixed inset-y-0 z-50 shadow-[4px_0_24px_rgba(0,0,0,0.02)]">
+        <div className="p-8 border-b border-slate-100/80">
           <Link href="/admin" className="flex flex-col gap-2">
             <img 
               src="/images/logo.png" 
               alt="Kaya Elite" 
-              className="h-12 w-auto brightness-0 invert" 
+              className="h-10 w-auto" 
             />
-            <div className="flex items-center gap-2 px-3 py-1 bg-primary/10 rounded-full w-fit">
-              <div className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
-              <span className="text-[10px] uppercase tracking-[0.2em] font-bold text-primary">CRM Premium</span>
+            <div className="flex items-center gap-2 px-3 py-1 bg-[#D4AF37]/10 rounded-full w-fit">
+              <div className="w-1.5 h-1.5 rounded-full bg-[#D4AF37] animate-pulse" />
+              <span className="text-[10px] uppercase tracking-[0.2em] font-bold text-[#D4AF37]">CRM Production</span>
             </div>
           </Link>
         </div>
         
-        <nav className="flex-1 p-6 space-y-8 overflow-y-auto custom-scrollbar">
+        <nav className="flex-1 p-6 space-y-8 overflow-y-auto custom-scrollbar scrollbar-hide">
           {menuItems.map((group) => (
             <div key={group.group} className="space-y-3">
-              <h3 className="px-4 text-[10px] uppercase tracking-[0.3em] font-bold text-slate-500">
+              <h3 className="px-4 text-[10px] uppercase tracking-[0.3em] font-black text-slate-400">
                 {group.group}
               </h3>
               <div className="space-y-1">
@@ -85,11 +87,11 @@ export default async function AdminLayout({
                   <Link
                     key={item.name}
                     href={item.href}
-                    className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-all group relative overflow-hidden"
+                    className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-50 transition-all group relative overflow-hidden active:scale-[0.98]"
                   >
-                    <item.icon size={18} className="text-slate-400 group-hover:text-primary transition-colors relative z-10" />
-                    <span className="text-sm font-medium group-hover:text-white transition-colors relative z-10">{item.name}</span>
-                    <div className="absolute inset-0 bg-gradient-to-r from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                    <item.icon size={18} className="text-slate-400 group-hover:text-[#D4AF37] transition-colors relative z-10" />
+                    <span className="text-sm font-semibold text-slate-600 group-hover:text-[#0F172A] transition-colors relative z-10">{item.name}</span>
+                    <div className="absolute inset-0 bg-gradient-to-r from-[#D4AF37]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                   </Link>
                 ))}
               </div>
@@ -97,20 +99,20 @@ export default async function AdminLayout({
           ))}
         </nav>
 
-        <div className="p-6 border-t border-slate-800/50 bg-[#020617]/80 backdrop-blur-xl">
+        <div className="p-6 border-t border-slate-100 bg-white/80 backdrop-blur-xl">
           <Link 
             href="/"
-            className="flex items-center justify-between px-4 py-3 rounded-xl bg-slate-900 border border-slate-800 hover:border-primary/50 transition-all group mb-4"
+            className="flex items-center justify-between px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 hover:border-[#D4AF37]/50 transition-all group mb-4 shadow-sm hover:shadow-md"
           >
             <div className="flex items-center gap-3">
               <Building2 size={18} className="text-slate-400" />
-              <span className="text-sm font-medium">Live Website</span>
+              <span className="text-sm font-semibold text-slate-700">Live Website</span>
             </div>
-            <ExternalLink size={14} className="text-slate-500 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+            <ExternalLink size={14} className="text-slate-400 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
           </Link>
-          <SignOutButton className="w-full flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-red-500/10 transition-all text-slate-400 hover:text-red-400 group">
+          <SignOutButton className="w-full flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-red-50 transition-all text-slate-500 hover:text-red-500 group border border-transparent hover:border-red-100">
             <LogOut size={18} className="group-hover:-translate-x-1 transition-transform" />
-            <span className="text-sm font-medium">Logout Session</span>
+            <span className="text-sm font-semibold tracking-tight">Sign Out</span>
           </SignOutButton>
         </div>
       </aside>
@@ -118,44 +120,42 @@ export default async function AdminLayout({
       {/* Main Content */}
       <main className="flex-1 ml-72">
         {/* Top Header */}
-        <header className="h-24 border-b border-slate-800/50 bg-[#020617]/50 backdrop-blur-md sticky top-0 z-40 flex items-center justify-between px-10">
+        <header className="h-24 border-b border-slate-200 bg-white/80 backdrop-blur-md sticky top-0 z-40 flex items-center justify-between px-10 shadow-[0_2px_12px_rgba(0,0,0,0.01)]">
           <div className="flex items-center gap-6 flex-1">
             <div className="relative w-96 group">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 group-focus-within:text-primary transition-colors" size={18} />
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-[#D4AF37] transition-colors" size={18} />
               <input 
                 type="text" 
-                placeholder="Search leads, properties, logs..." 
-                className="w-full bg-slate-900/50 border border-slate-800 rounded-full py-2.5 pl-12 pr-4 text-sm focus:outline-none focus:border-primary/50 focus:bg-slate-900 transition-all"
+                placeholder="Search CRM intelligence..." 
+                className="w-full bg-slate-50 border border-slate-200 rounded-full py-2.5 pl-12 pr-4 text-sm focus:outline-none focus:border-[#D4AF37]/50 focus:bg-white focus:shadow-lg focus:shadow-[#D4AF37]/5 transition-all text-[#0F172A] placeholder:text-slate-400"
               />
             </div>
           </div>
 
-          <div className="flex items-center gap-6">
-            <button className="relative p-2.5 bg-slate-900 rounded-full border border-slate-800 hover:border-primary/50 transition-all group">
-              <Bell size={18} className="text-slate-400 group-hover:text-primary transition-colors" />
-              <div className="absolute top-2 right-2 w-2 h-2 bg-primary rounded-full border-2 border-[#020617]" />
-            </button>
+          <div className="flex items-center gap-8">
+            <NotificationCenter />
             
-            <div className="h-10 w-px bg-slate-800" />
+            <div className="h-8 w-px bg-slate-200" />
 
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-4 group cursor-pointer">
               <div className="text-right hidden sm:block">
-                <p className="text-sm font-bold text-white tracking-tight">{session?.user?.name || "Admin User"}</p>
-                <p className="text-[10px] uppercase tracking-widest text-slate-500 font-bold">Executive Access</p>
+                <p className="text-sm font-bold text-[#0F172A] tracking-tight group-hover:text-[#D4AF37] transition-colors">{session?.user?.name || "Admin User"}</p>
+                <p className="text-[10px] uppercase tracking-widest text-slate-400 font-black">Executive Partner</p>
               </div>
-              <div className="relative group">
-                <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-primary to-primary/60 p-[1px]">
-                  <div className="w-full h-full rounded-xl bg-slate-900 flex items-center justify-center text-primary font-black text-lg group-hover:bg-primary group-hover:text-white transition-all cursor-pointer">
+              <div className="relative">
+                <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-[#D4AF37] to-[#B8962D] p-[1.5px] shadow-lg shadow-[#D4AF37]/20 group-hover:scale-105 transition-transform duration-300">
+                  <div className="w-full h-full rounded-[10px] bg-white flex items-center justify-center text-[#D4AF37] font-black text-lg">
                     {session?.user?.name?.charAt(0) || "A"}
                   </div>
                 </div>
               </div>
+              <ChevronDown size={14} className="text-slate-400 group-hover:text-[#D4AF37] transition-colors" />
             </div>
           </div>
         </header>
 
         {/* Page Body */}
-        <div className="p-10">
+        <div className="p-10 max-w-[1600px] mx-auto">
           {children}
         </div>
       </main>
