@@ -29,23 +29,12 @@ export function Navbar() {
   const logoInvertClass = !showBackground ? "brightness-0 invert" : "";
 
   const navLinks = [
-    { name: "Masterplan", href: "#masterplan" },
-    { name: "Villas", href: "#villas" },
-    { name: "Amenities", href: "#amenities" },
-    { name: "Investment ROI", href: "#investment" },
-    { name: "Gallery", href: "#gallery" },
+    { name: "Masterplan", href: "/masterplan" },
+    { name: "Villas", href: "/villas" },
+    { name: "Amenities", href: "/amenities" },
+    { name: "Investment ROI", href: "/investment-roi" },
+    { name: "Gallery", href: "/gallery" },
   ];
-
-  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    if (href.startsWith("#") && isHomePage) {
-      e.preventDefault();
-      const element = document.getElementById(href.substring(1));
-      if (element) {
-        element.scrollIntoView({ behavior: "smooth" });
-        setMobileMenuOpen(false);
-      }
-    }
-  };
 
   return (
     <header
@@ -69,7 +58,6 @@ export function Navbar() {
             <Link
               key={link.name}
               href={link.href}
-              onClick={(e) => handleNavClick(e, link.href)}
               className={`text-xs tracking-widest transition-colors hover:text-primary font-medium ${textColorClass}`}
             >
               {link.name}
@@ -80,8 +68,7 @@ export function Navbar() {
         {/* CTA & Mobile Toggle */}
         <div className="flex items-center gap-4 z-50">
           <Link
-            href="#contact"
-            onClick={(e) => handleNavClick(e, "#contact")}
+            href="/contact"
             className="hidden lg:flex items-center gap-2 bg-primary text-primary-foreground px-5 py-2 rounded-full text-xs font-bold tracking-widest uppercase transition-transform hover:scale-105"
           >
             <Phone size={14} />
@@ -165,15 +152,15 @@ export function Navbar() {
                 <Link
                   key={link.name}
                   href={link.href}
-                  onClick={(e) => handleNavClick(e, link.href)}
+                  onClick={() => setMobileMenuOpen(false)}
                   className="text-foreground hover:text-primary transition-colors border-b border-border pb-4"
                 >
                   {link.name}
                 </Link>
               ))}
               <Link
-                href="#contact"
-                onClick={(e) => handleNavClick(e, "#contact")}
+                href="/contact"
+                onClick={() => setMobileMenuOpen(false)}
                 className="text-foreground hover:text-primary transition-colors border-b border-border pb-4"
               >
                 Schedule Visit

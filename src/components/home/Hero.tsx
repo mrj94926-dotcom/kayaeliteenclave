@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
+import Link from "next/link";
 import { ArrowRight, Building, Leaf, Shield, Download } from "lucide-react";
 
 export function Hero() {
@@ -61,19 +62,19 @@ export function Hero() {
 
           {/* Buttons */}
           <div className="flex flex-col md:flex-row items-center justify-center gap-6 mb-20">
-            <button 
-              onClick={() => document.getElementById('masterplan')?.scrollIntoView({ behavior: 'smooth' })}
+            <Link 
+              href="/masterplan"
               className="w-full md:w-auto px-10 py-5 bg-primary text-white text-[10px] uppercase tracking-[0.4em] font-bold hover:bg-primary/90 transition-all rounded-sm flex items-center justify-center gap-4 group shadow-2xl shadow-primary/20"
             >
               Explore Masterplan
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </button>
-            <button 
-              onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
-              className="w-full md:w-auto px-10 py-5 bg-white/5 backdrop-blur-md border border-white/10 text-white text-[10px] uppercase tracking-[0.4em] font-bold hover:bg-white/10 transition-all rounded-sm"
+            </Link>
+            <Link 
+              href="/contact"
+              className="w-full md:w-auto px-10 py-5 bg-white/5 backdrop-blur-md border border-white/10 text-white text-[10px] uppercase tracking-[0.4em] font-bold hover:bg-white/10 transition-all rounded-sm flex items-center justify-center"
             >
               Schedule Visit
-            </button>
+            </Link>
           </div>
 
           {/* Amenity Badges (Fixed Flow) */}
