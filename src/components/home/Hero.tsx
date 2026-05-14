@@ -11,114 +11,88 @@ export function Hero() {
   const opacity = useTransform(scrollY, [0, 500], [1, 0]);
 
   return (
-    <section ref={containerRef} className="relative h-screen w-full overflow-hidden flex items-center justify-center">
-      {/* Background with Parallax */}
+    <section ref={containerRef} className="relative h-screen w-full overflow-hidden flex items-center justify-center bg-black">
+      {/* Background with Cinematic Zoom */}
       <motion.div 
-        style={{ y, opacity }}
+        initial={{ scale: 1.15 }}
+        animate={{ scale: 1 }}
+        transition={{ duration: 12, ease: "linear" }}
         className="absolute inset-0 z-0"
       >
         <div className="absolute inset-0 bg-black/40 z-10" />
-        <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent z-10" />
-        {/* We use a placeholder luxury villa image. Replace with video/actual render later */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent z-10 opacity-60" />
         <img 
-          src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?q=80&w=2071&auto=format&fit=crop" 
-          alt="Kaya Elite Enclave Luxury Villa" 
-          className="w-full h-full object-cover scale-105"
+          src="/images/villa-exterior.jpg" 
+          alt="Kaya Elite Villa" 
+          className="w-full h-full object-cover"
         />
       </motion.div>
 
-      {/* Content */}
-      <div className="container relative z-30 mx-auto px-6 flex flex-col items-center justify-center text-center pb-32 pt-20">
-        <motion.h1 
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.4, ease: "easeOut" }}
-          className="text-4xl md:text-6xl lg:text-7xl font-serif text-white mb-8 leading-tight"
-        >
-          Kaya Elite <br/><span className="text-gradient">Enclave</span>
-        </motion.h1>
-
-        <motion.p 
+      {/* Hero Content */}
+      <div className="container mx-auto px-6 relative z-20 text-center text-white pt-32 pb-32 md:pt-48 md:pb-40 min-h-screen flex flex-col items-center justify-start">
+        <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.6, ease: "easeOut" }}
-          className="text-white/80 text-lg md:text-xl max-w-2xl mb-10"
+          transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+          className="max-w-5xl mx-auto flex flex-col items-center"
         >
-          Luxury Lakefront Villas & Investment Community Near Madurai Airport. The next phase of commercial and residential appreciation.
-        </motion.p>
+          {/* Tagline */}
+          <div className="flex flex-col items-center space-y-6 mb-12">
+            <motion.div 
+              initial={{ width: 0 }}
+              animate={{ width: 60 }}
+              transition={{ delay: 0.8, duration: 1 }}
+              className="h-[1px] bg-primary/60" 
+            />
+            <span className="text-[10px] md:text-xs uppercase tracking-[0.6em] font-bold text-primary/80">
+              The Pinnacle of Private Living
+            </span>
+          </div>
 
-        <motion.div 
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.8, ease: "easeOut" }}
-          className="flex flex-col sm:flex-row gap-4"
-        >
-          <button 
-            onClick={() => document.getElementById('brochure-download')?.scrollIntoView({ behavior: 'smooth' })}
-            className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-4 rounded-full font-bold tracking-widest uppercase text-xs transition-all flex items-center justify-center gap-2 shadow-xl shadow-primary/20"
-          >
-            Download Brochure <Download size={16} />
-          </button>
-          <button 
-            onClick={() => document.getElementById('brochure-download')?.scrollIntoView({ behavior: 'smooth' })}
-            className="glass-dark hover:bg-white/20 text-white px-8 py-4 rounded-full font-bold tracking-widest uppercase text-xs transition-all border border-white/10"
-          >
-            Schedule Site Visit
-          </button>
+          {/* Title */}
+          <h1 className="text-5xl md:text-8xl lg:text-9xl font-serif leading-[1.05] tracking-tight mb-10">
+            Kaya Elite <span className="text-gradient italic block md:inline">Enclave</span>
+          </h1>
+          
+          {/* Description */}
+          <p className="text-base md:text-xl text-white/70 max-w-2xl mx-auto font-light leading-relaxed px-4 mb-16">
+            Discover a curated collection of ultra-luxury villas directly opposite Madurai's upcoming 7-star hospitality landmark.
+          </p>
+
+          {/* Buttons */}
+          <div className="flex flex-col md:flex-row items-center justify-center gap-6 mb-20">
+            <button 
+              onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+              className="w-full md:w-auto px-10 py-5 bg-primary text-white text-[10px] uppercase tracking-[0.4em] font-bold hover:bg-primary/90 transition-all rounded-sm flex items-center justify-center gap-4 group shadow-2xl shadow-primary/20"
+            >
+              Download Brochure
+              <Download className="w-4 h-4 group-hover:translate-y-1 transition-transform" />
+            </button>
+            <button 
+              onClick={() => document.getElementById('story')?.scrollIntoView({ behavior: 'smooth' })}
+              className="w-full md:w-auto px-10 py-5 bg-white/5 backdrop-blur-md border border-white/10 text-white text-[10px] uppercase tracking-[0.4em] font-bold hover:bg-white/10 transition-all rounded-sm"
+            >
+              The Vision
+            </button>
+          </div>
+
+          {/* Amenity Badges (Fixed Flow) */}
+          <div className="flex flex-wrap justify-center gap-8 md:gap-12 text-white/40 text-[9px] uppercase tracking-[0.5em] font-bold">
+            <span className="flex items-center gap-3"><div className="w-1.5 h-1.5 bg-primary rounded-full" /> Lakefront Luxury</span>
+            <span className="flex items-center gap-3"><div className="w-1.5 h-1.5 bg-primary rounded-full" /> 7-Star Proximity</span>
+            <span className="flex items-center gap-3"><div className="w-1.5 h-1.5 bg-primary rounded-full" /> High-Yield Asset</span>
+          </div>
         </motion.div>
       </div>
 
-      {/* Floating Stats / Glass Cards */}
+      {/* Scroll Indicator (Refined) */}
       <motion.div 
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1, delay: 1.2, ease: "easeOut" }}
-        className="absolute bottom-6 left-0 right-0 z-20 hidden md:flex justify-center gap-6 px-6"
+        animate={{ y: [0, 10, 0] }}
+        transition={{ duration: 2, repeat: Infinity }}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-4 hidden md:flex"
       >
-        <div className="glass-dark px-6 py-4 rounded-2xl flex items-center gap-4 border-l-2 border-l-primary w-64 hover:-translate-y-2 transition-transform duration-300">
-          <div className="bg-primary/20 p-3 rounded-full text-primary">
-            <Building size={24} />
-          </div>
-          <div className="text-left text-white">
-            <p className="text-xs text-white/60 uppercase tracking-wider">Premium ROI</p>
-            <p className="font-semibold">Service Apartment Model</p>
-          </div>
-        </div>
-
-        <div className="glass-dark px-6 py-4 rounded-2xl flex items-center gap-4 border-l-2 border-l-primary w-64 hover:-translate-y-2 transition-transform duration-300">
-          <div className="bg-primary/20 p-3 rounded-full text-primary">
-            <Leaf size={24} />
-          </div>
-          <div className="text-left text-white">
-            <p className="text-xs text-white/60 uppercase tracking-wider">Lakefront</p>
-            <p className="font-semibold">Scenic Views</p>
-          </div>
-        </div>
-
-        <div className="glass-dark px-6 py-4 rounded-2xl flex items-center gap-4 border-l-2 border-l-primary w-64 hover:-translate-y-2 transition-transform duration-300">
-          <div className="bg-primary/20 p-3 rounded-full text-primary">
-            <Shield size={24} />
-          </div>
-          <div className="text-left text-white">
-            <p className="text-xs text-white/60 uppercase tracking-wider">Security</p>
-            <p className="font-semibold">Gated Community</p>
-          </div>
-        </div>
-      </motion.div>
-
-      {/* Scroll Indicator */}
-      <motion.div 
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1, delay: 1.5 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center md:hidden"
-      >
-        <span className="text-white/50 text-xs tracking-widest uppercase mb-2">Scroll</span>
-        <motion.div 
-          animate={{ y: [0, 10, 0] }}
-          transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
-          className="w-[1px] h-12 bg-gradient-to-b from-white/50 to-transparent"
-        />
+        <span className="text-[8px] uppercase tracking-[0.5em] text-white/30">Explore Vision</span>
+        <div className="w-px h-12 bg-gradient-to-b from-primary/40 to-transparent" />
       </motion.div>
     </section>
   );

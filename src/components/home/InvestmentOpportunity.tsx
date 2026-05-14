@@ -24,7 +24,7 @@ export function InvestmentOpportunity() {
   };
 
   return (
-    <section className="py-24 md:py-32 bg-accent relative overflow-hidden">
+    <section className="py-24 md:py-32 bg-accent relative overflow-hidden" id="investment">
       {/* Decorative gradient blob */}
       <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-primary/5 to-transparent pointer-events-none" />
       

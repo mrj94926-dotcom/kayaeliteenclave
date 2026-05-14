@@ -58,7 +58,7 @@ export function LeadGenerationForm() {
   }
 
   return (
-    <section className="py-24 bg-background relative" id="brochure-download">
+    <section className="py-24 bg-background relative" id="contact">
       <div className="container mx-auto px-6 max-w-6xl">
         <div className="bg-card rounded-[2.5rem] shadow-2xl shadow-slate-200/50 overflow-hidden border border-border">
           <div className="flex flex-col md:flex-row">

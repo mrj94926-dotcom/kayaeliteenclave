@@ -96,30 +96,30 @@ const StorySection = ({
 export default function Storytelling() {
   const sections = [
     {
-      tag: "The Location",
+      tag: "Location Intelligence",
       title: "Opposite Madurai’s next luxury landmark.",
-      description: "Positioned with precision directly opposite the upcoming 7-star hospitality landmark and the thriving airport economic corridor.",
-      image: "https://images.unsplash.com/photo-1600585154340-be6199f79009?q=80&w=2070&auto=format&fit=crop",
+      description: "Positioned with precision directly opposite the upcoming 7-star hospitality landmark and the thriving airport economic corridor. A strategic location poised for unprecedented appreciation.",
+      image: "/images/masterplan-aerial.jpg",
       reverse: false
     },
     {
-      tag: "The Investment",
-      title: "More than a villa. A high-yield asset.",
-      description: "Designed not just for living, but for generational wealth. A long-term commercial asset engineered for recurring hospitality-driven income.",
-      image: "https://images.unsplash.com/photo-1600607687940-4e524cb350b1?q=80&w=2070&auto=format&fit=crop",
+      tag: "Investment Advantage",
+      title: "Hospitality-driven recurring income potential.",
+      description: "Designed not just for living, but for generational wealth. A long-term commercial asset engineered for high-yield hospitality income and tourism growth.",
+      image: "/images/community-pool.jpg",
       reverse: true
     },
     {
-      tag: "The Architecture",
+      tag: "Architecture Section",
       title: "Crafted for modern luxury living.",
       description: "A sanctuary of minimal architecture and curated amenities, where every line is designed to elevate the subtle luxury of space and light.",
-      image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=2070&auto=format&fit=crop",
+      image: "/images/villa-exterior.jpg",
       reverse: false
     }
   ];
 
   return (
-    <div className="bg-[#FCFBFA]"> {/* Warm Architectural White */}
+    <div className="bg-[#FCFBFA]" id="story"> {/* Warm Architectural White */}
       {sections.map((section, i) => (
         <StorySection key={i} {...section} />
       ))}
