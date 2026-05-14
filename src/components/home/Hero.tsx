@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { ArrowRight, Building, Leaf, Shield } from "lucide-react";
+import { ArrowRight, Building, Leaf, Shield, Download } from "lucide-react";
 
 export function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -53,10 +53,16 @@ export function Hero() {
           transition={{ duration: 1, delay: 0.8, ease: "easeOut" }}
           className="flex flex-col sm:flex-row gap-4"
         >
-          <button className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-4 rounded-full font-medium transition-all flex items-center justify-center gap-2">
-            Explore Project <ArrowRight size={18} />
+          <button 
+            onClick={() => document.getElementById('brochure-download')?.scrollIntoView({ behavior: 'smooth' })}
+            className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-4 rounded-full font-bold tracking-widest uppercase text-xs transition-all flex items-center justify-center gap-2 shadow-xl shadow-primary/20"
+          >
+            Download Brochure <Download size={16} />
           </button>
-          <button className="glass-dark hover:bg-white/20 text-white px-8 py-4 rounded-full font-medium transition-all">
+          <button 
+            onClick={() => document.getElementById('brochure-download')?.scrollIntoView({ behavior: 'smooth' })}
+            className="glass-dark hover:bg-white/20 text-white px-8 py-4 rounded-full font-bold tracking-widest uppercase text-xs transition-all border border-white/10"
+          >
             Schedule Site Visit
           </button>
         </motion.div>

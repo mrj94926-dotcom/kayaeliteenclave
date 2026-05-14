@@ -92,38 +92,31 @@ export function Navbar() {
                 )}
               </button>
 
-              <AnimatePresence>
-                {userMenuOpen && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 10, scale: 0.95 }}
-                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                    exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                    className="absolute right-0 mt-2 w-56 bg-white rounded-2xl shadow-2xl border border-slate-100 overflow-hidden py-2"
-                  >
-                    <div className="px-4 py-3 border-b border-slate-50">
-                      <p className="text-sm font-bold text-slate-900 truncate">{session.user?.name}</p>
-                      <p className="text-xs text-slate-500 truncate">{session.user?.email}</p>
-                    </div>
-                    {(session.user as any).role === "ADMIN" && (
-                      <Link 
-                        href="/admin" 
-                        onClick={() => setUserMenuOpen(false)}
-                        className="flex items-center gap-3 px-4 py-3 text-sm text-slate-700 hover:bg-slate-50 transition-colors"
-                      >
-                        <LayoutDashboard size={16} className="text-slate-400" />
-                        Admin Dashboard
-                      </Link>
-                    )}
-                    <button 
-                      onClick={() => signOut()}
-                      className="w-full flex items-center gap-3 px-4 py-3 text-sm text-red-600 hover:bg-red-50 transition-colors"
+              {userMenuOpen && (
+                <div className="absolute right-0 mt-2 w-56 bg-white rounded-2xl shadow-2xl border border-slate-100 overflow-hidden py-2">
+                  <div className="px-4 py-3 border-b border-slate-50">
+                    <p className="text-sm font-bold text-slate-900 truncate">{session.user?.name}</p>
+                    <p className="text-xs text-slate-500 truncate">{session.user?.email}</p>
+                  </div>
+                  {(session.user as any).role === "ADMIN" && (
+                    <Link 
+                      href="/admin" 
+                      onClick={() => setUserMenuOpen(false)}
+                      className="flex items-center gap-3 px-4 py-3 text-sm text-slate-700 hover:bg-slate-50 transition-colors"
                     >
-                      <LogOut size={16} />
-                      Sign Out
-                    </button>
-                  </motion.div>
-                )}
-              </AnimatePresence>
+                      <LayoutDashboard size={16} className="text-slate-400" />
+                      Admin Dashboard
+                    </Link>
+                  )}
+                  <button 
+                    onClick={() => signOut()}
+                    className="w-full flex items-center gap-3 px-4 py-3 text-sm text-red-600 hover:bg-red-50 transition-colors"
+                  >
+                    <LogOut size={16} />
+                    Sign Out
+                  </button>
+                </div>
+              )}
             </div>
           ) : (
             <button
@@ -146,36 +139,29 @@ export function Navbar() {
       </div>
 
       {/* Mobile Menu */}
-      <AnimatePresence>
-        {mobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className="absolute top-0 left-0 right-0 h-screen bg-background pt-24 px-6 flex flex-col md:hidden shadow-2xl"
-          >
-            <nav className="flex flex-col gap-6 text-xl font-serif">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.name}
-                  href={link.href}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="text-foreground hover:text-primary transition-colors border-b border-border pb-4"
-                >
-                  {link.name}
-                </Link>
-              ))}
+      {mobileMenuOpen && (
+        <div className="absolute top-0 left-0 right-0 h-screen bg-background pt-24 px-6 flex flex-col md:hidden shadow-2xl">
+          <nav className="flex flex-col gap-6 text-xl font-serif">
+            {navLinks.map((link) => (
               <Link
-                href="/contact"
+                key={link.name}
+                href={link.href}
                 onClick={() => setMobileMenuOpen(false)}
                 className="text-foreground hover:text-primary transition-colors border-b border-border pb-4"
               >
-                Contact Us
+                {link.name}
               </Link>
-            </nav>
-          </motion.div>
-        )}
-      </AnimatePresence>
+            ))}
+            <Link
+              href="/contact"
+              onClick={() => setMobileMenuOpen(false)}
+              className="text-foreground hover:text-primary transition-colors border-b border-border pb-4"
+            >
+              Contact Us
+            </Link>
+          </nav>
+        </div>
+      )}
     </header>
   );
 }

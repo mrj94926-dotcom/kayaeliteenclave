@@ -1,19 +1,16 @@
 import NextAuth from "next-auth"
 import Google from "next-auth/providers/google"
-import Resend from "next-auth/providers/resend"
-console.log("AUTH_SECRET length:", process.env.AUTH_SECRET?.length);
-console.log("AUTH_URL:", process.env.AUTH_URL);
+import { isAdmin } from "@/lib/isAdmin"
+import { sql } from "@/lib/db"
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
-  debug: true, // Enable debug mode for more verbose server logs
+  debug: process.env.NODE_ENV === "development",
+  secret: process.env.AUTH_SECRET,
+  basePath: "/api/auth",
   providers: [
     Google({
       clientId: process.env.AUTH_GOOGLE_ID,
       clientSecret: process.env.AUTH_GOOGLE_SECRET,
-    }),
-    Resend({
-      apiKey: process.env.RESEND_API_KEY,
-      from: process.env.EMAIL_FROM,
     }),
   ],
   pages: {
@@ -24,26 +21,35 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     strategy: "jwt",
   },
   callbacks: {
-    async signIn({ user }) {
-      console.log("SignIn callback for:", user.email);
+    async signIn({ user, account, profile }) {
       if (!user.email) return false;
       
-      const adminEmails = process.env.ADMIN_EMAILS?.split(",").map(e => e.trim().toLowerCase()) || [];
-      const isAdmin = adminEmails.includes(user.email.toLowerCase());
-      console.log("Is Admin:", isAdmin);
-      return true; 
+      const role = isAdmin(user.email) ? "ADMIN" : "USER";
+      
+      try {
+        // Sync user with database
+        await sql`
+          INSERT INTO users (id, name, email, image, role)
+          VALUES (${user.id || ""}, ${user.name || ""}, ${user.email}, ${user.image || ""}, ${role})
+          ON CONFLICT (email) 
+          DO UPDATE SET 
+            name = EXCLUDED.name, 
+            image = EXCLUDED.image,
+            role = EXCLUDED.role
+        `;
+        return true;
+      } catch (error) {
+        console.error("Error saving user to DB:", error);
+        return true; // Still allow login even if DB sync fails
+      }
     },
     async jwt({ token, user }) {
-      console.log("JWT callback. User present:", !!user);
       if (user) {
-        const adminEmails = process.env.ADMIN_EMAILS?.split(",").map(e => e.trim().toLowerCase()) || [];
-        token.role = adminEmails.includes(user.email?.toLowerCase() || "") ? "ADMIN" : "USER";
-        console.log("Assigned role to token:", token.role);
+        token.role = isAdmin(user.email) ? "ADMIN" : "USER";
       }
       return token;
     },
     async session({ session, token }) {
-      console.log("Session callback. Token role:", token.role);
       if (session.user) {
         session.user.id = token.sub as string;
         session.user.role = token.role as string;

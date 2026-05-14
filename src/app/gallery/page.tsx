@@ -69,7 +69,7 @@ export default function GalleryPage() {
         </div>
 
         {/* Lightbox */}
-        <AnimatePresence>
+        <AnimatePresence mode="wait">
           {selectedImage && (
             <motion.div 
               initial={{ opacity: 0 }}
