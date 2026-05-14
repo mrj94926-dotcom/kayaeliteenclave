@@ -12,7 +12,7 @@ export default function MasterplanSection() {
   ];
 
   return (
-    <section className="py-24 md:py-40 bg-white scroll-mt-20" id="masterplan">
+    <section className="pt-28 md:pt-32 pb-24 md:pb-40 bg-white scroll-mt-20" id="masterplan">
       <div className="container mx-auto px-6">
         <div className="flex flex-col lg:flex-row items-center gap-16 lg:gap-24">
           {/* Text Content */}

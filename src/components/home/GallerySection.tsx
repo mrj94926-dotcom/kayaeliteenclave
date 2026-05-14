@@ -13,7 +13,7 @@ export default function GallerySection() {
   ];
 
   return (
-    <section className="py-24 md:py-40 bg-white scroll-mt-20" id="gallery">
+    <section className="pt-28 md:pt-32 pb-24 md:pb-40 bg-white scroll-mt-20" id="gallery">
       <div className="container mx-auto px-6">
         <div className="text-center max-w-3xl mx-auto mb-24 space-y-6">
           <div className="flex flex-col items-center space-y-4">

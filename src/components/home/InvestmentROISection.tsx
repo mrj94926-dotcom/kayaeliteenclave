@@ -73,7 +73,7 @@ export default function InvestmentROISection() {
   ];
 
   return (
-    <section className="py-24 md:py-40 bg-white text-slate-900 scroll-mt-20 overflow-hidden" id="investment">
+    <section className="pt-28 md:pt-32 pb-24 md:pb-40 bg-white text-slate-900 scroll-mt-20 overflow-hidden" id="investment">
       <div className="container mx-auto px-6">
         <div className="max-w-4xl mb-24">
           <div className="flex items-center gap-4 mb-8">

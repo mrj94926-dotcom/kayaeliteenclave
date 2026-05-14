@@ -30,7 +30,7 @@ export function Hero() {
       </motion.div>
 
       {/* Hero Content */}
-      <div className="container mx-auto px-6 relative z-20 text-center text-white pt-32 pb-32 md:pt-48 md:pb-40 min-h-screen flex flex-col items-center justify-start">
+      <div className="container mx-auto px-6 relative z-20 text-center text-white pt-40 pb-32 md:pt-60 md:pb-40 min-h-screen flex flex-col items-center justify-start">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -61,7 +61,7 @@ export function Hero() {
           </p>
 
           {/* Buttons */}
-          <div className="flex flex-col md:flex-row items-center justify-center gap-6 mb-20">
+          <div className="flex flex-col md:flex-row items-center justify-center gap-6 mb-12">
             <Link 
               href="/masterplan"
               className="w-full md:w-auto px-10 py-5 bg-primary text-white text-[10px] uppercase tracking-[0.4em] font-bold hover:bg-primary/90 transition-all rounded-sm flex items-center justify-center gap-4 group shadow-2xl shadow-primary/20"
@@ -86,13 +86,13 @@ export function Hero() {
         </motion.div>
       </div>
 
-      {/* Scroll Indicator (Refined) */}
+      {/* Scroll Indicator (Restored Text) */}
       <motion.div 
         animate={{ y: [0, 10, 0] }}
         transition={{ duration: 2, repeat: Infinity }}
         className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-4 hidden md:flex"
       >
-        <span className="text-[8px] uppercase tracking-[0.5em] text-white/30">Explore Vision</span>
+        <span className="text-[8px] uppercase tracking-[0.5em] text-white/30">Scroll to Explore</span>
         <div className="w-px h-12 bg-gradient-to-b from-primary/40 to-transparent" />
       </motion.div>
     </section>

@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 
 export default function InvestmentROIPage() {
   return (
-    <main className="pt-20">
+    <main>
       <InvestmentROISection />
     </main>
   );

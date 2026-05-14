@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 
 export default function MasterplanPage() {
   return (
-    <main className="pt-20">
+    <main>
       <MasterplanSection />
     </main>
   );

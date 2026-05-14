@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 
 export default function VillasPage() {
   return (
-    <main className="pt-20">
+    <main>
       <VillasSection />
     </main>
   );

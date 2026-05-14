@@ -5,7 +5,7 @@ import FloorPlanShowcase from "./FloorPlanShowcase";
 
 export default function VillasSection() {
   return (
-    <section className="bg-[#FCFBFA] scroll-mt-20" id="villas">
+    <section className="bg-[#FCFBFA] scroll-mt-20 pt-28 md:pt-32" id="villas">
       {/* Architectural Showcase */}
       <div className="py-24 md:py-40 container mx-auto px-6">
         <div className="flex flex-col lg:flex-row-reverse items-center gap-16 lg:gap-24 mb-24">
