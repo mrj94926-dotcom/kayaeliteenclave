@@ -1,7 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight, Mail, MapPin, Phone } from "lucide-react";
+import { ArrowRight, Check, Loader2, Mail, MapPin, Phone } from "lucide-react";
+import { useState } from "react";
+import { subscribeNewsletterAction } from "@/app/actions/newsletter";
 
 export function Footer() {
   return (
@@ -53,24 +55,10 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Newsletter */}
           <div className="space-y-6">
             <h4 className="text-lg font-medium text-primary">Newsletter</h4>
             <p className="text-sm text-background/70">Subscribe for exclusive updates on project progress and investment opportunities.</p>
-            <form className="flex" onSubmit={(e) => e.preventDefault()}>
-              <input 
-                type="email" 
-                placeholder="Your email address" 
-                className="bg-background/10 border border-background/20 text-background px-4 py-3 rounded-l-md w-full focus:outline-none focus:border-primary text-sm"
-                required
-              />
-              <button 
-                type="submit" 
-                className="bg-primary text-primary-foreground px-4 py-3 rounded-r-md hover:bg-primary/90 transition-colors flex items-center justify-center"
-              >
-                <ArrowRight size={18} />
-              </button>
-            </form>
+            <NewsletterForm />
           </div>
         </div>
 
@@ -83,5 +71,62 @@ export function Footer() {
         </div>
       </div>
     </footer>
+  );
+}
+
+function NewsletterForm() {
+  const [email, setEmail] = useState("");
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [message, setMessage] = useState("");
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    setStatus("loading");
+    
+    try {
+      const result = await subscribeNewsletterAction(email);
+      if (result.success) {
+        setStatus("success");
+        setMessage(result.message || "Subscribed successfully!");
+        setEmail("");
+      } else {
+        setStatus("error");
+        setMessage(result.error || "Something went wrong.");
+      }
+    } catch (error) {
+      setStatus("error");
+      setMessage("An error occurred.");
+    }
+  }
+
+  return (
+    <div className="space-y-2">
+      <form className="flex" onSubmit={handleSubmit}>
+        <input 
+          type="email" 
+          placeholder="Your email address" 
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          className="bg-background/10 border border-background/20 text-background px-4 py-3 rounded-l-md w-full focus:outline-none focus:border-primary text-sm"
+          required
+          disabled={status === "loading" || status === "success"}
+        />
+        <button 
+          type="submit" 
+          disabled={status === "loading" || status === "success"}
+          className="bg-primary text-primary-foreground px-4 py-3 rounded-r-md hover:bg-primary/90 transition-colors flex items-center justify-center disabled:opacity-50"
+        >
+          {status === "loading" ? (
+            <Loader2 className="animate-spin" size={18} />
+          ) : status === "success" ? (
+            <Check size={18} />
+          ) : (
+            <ArrowRight size={18} />
+          )}
+        </button>
+      </form>
+      {status === "success" && <p className="text-emerald-400 text-xs font-medium">{message}</p>}
+      {status === "error" && <p className="text-red-400 text-xs font-medium">{message}</p>}
+    </div>
   );
 }
