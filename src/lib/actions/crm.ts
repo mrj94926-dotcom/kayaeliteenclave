@@ -15,8 +15,8 @@ export async function updateLeadStatus(id: string, status: string) {
     
     // Log the activity
     await sql`
-      INSERT INTO activity_logs (event, description, type)
-      VALUES ('Lead Status Updated', 'Lead status changed to ' || ${status} || '.', 'update')
+      INSERT INTO activity_logs (action, event, description, type)
+      VALUES ('Update', 'Lead Status Updated', 'Lead status changed to ' || ${status} || '.', 'update')
     `;
 
     revalidatePath("/admin/leads");
@@ -33,8 +33,8 @@ export async function deleteLead(id: string) {
     await sql`DELETE FROM leads WHERE id = ${id}`;
     
     await sql`
-      INSERT INTO activity_logs (event, description, type)
-      VALUES ('Lead Deleted', 'A prospect record was permanently removed from the CRM.', 'delete')
+      INSERT INTO activity_logs (action, event, description, type)
+      VALUES ('Delete', 'Lead Deleted', 'A prospect record was permanently removed from the CRM.', 'delete')
     `;
 
     revalidatePath("/admin/leads");
@@ -51,8 +51,8 @@ export async function addLeadNote(leadId: string, note: string) {
     // This assumes a 'lead_notes' table or similar exists. 
     // For now, we'll just log it or update a notes field if it exists.
     await sql`
-      INSERT INTO activity_logs (event, description, type)
-      VALUES ('Admin Note Added', 'New intelligence note added to lead profile.', 'note')
+      INSERT INTO activity_logs (action, event, description, type)
+      VALUES ('Add Note', 'Admin Note Added', 'New intelligence note added to lead profile.', 'note')
     `;
     return { success: true };
   } catch (error) {
@@ -76,7 +76,7 @@ export async function updateAppointmentStatus(id: string, status: string) {
 
 export async function removeSubscriber(email: string) {
   try {
-    await sql`DELETE FROM subscribers WHERE email = ${email}`;
+    await sql`DELETE FROM newsletter WHERE email = ${email}`;
     revalidatePath("/admin/newsletter");
     return { success: true };
   } catch (error) {

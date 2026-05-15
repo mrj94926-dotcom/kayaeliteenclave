@@ -249,12 +249,12 @@ export default function LeadsTable({ initialLeads }: { initialLeads: Lead[] }) {
 
                 {/* Quick Engagement Actions */}
                 <div className="grid grid-cols-2 gap-4">
-                  <button className="flex items-center justify-center gap-3 py-5 bg-[#0F172A] text-white rounded-2xl text-[10px] font-black uppercase tracking-widest hover:bg-[#1e293b] transition-all shadow-xl shadow-[#0F172A]/10 active:scale-[0.98]">
+                  <a href={`https://wa.me/${selectedLead.phone?.replace(/[^0-9]/g, '')}`} target="_blank" rel="noreferrer" className="flex items-center justify-center gap-3 py-5 bg-[#0F172A] text-white rounded-2xl text-[10px] font-black uppercase tracking-widest hover:bg-[#1e293b] transition-all shadow-xl shadow-[#0F172A]/10 active:scale-[0.98]">
                     <Phone size={18} /> Initiate Protocol
-                  </button>
-                  <button className="flex items-center justify-center gap-3 py-5 bg-white border border-slate-200 text-[#0F172A] rounded-2xl text-[10px] font-black uppercase tracking-widest hover:bg-slate-50 transition-all shadow-sm active:scale-[0.98]">
+                  </a>
+                  <a href={`mailto:${selectedLead.email}`} className="flex items-center justify-center gap-3 py-5 bg-white border border-slate-200 text-[#0F172A] rounded-2xl text-[10px] font-black uppercase tracking-widest hover:bg-slate-50 transition-all shadow-sm active:scale-[0.98]">
                     <Mail size={18} /> Secure Message
-                  </button>
+                  </a>
                 </div>
 
                 {/* Information Modules */}

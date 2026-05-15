@@ -8,7 +8,7 @@ export const dynamic = "force-dynamic";
 
 export default async function AdminNewsletterPage() {
   const subscribers = await sql`
-    SELECT * FROM subscribers 
+    SELECT * FROM newsletter 
     ORDER BY created_at DESC
   `;
 

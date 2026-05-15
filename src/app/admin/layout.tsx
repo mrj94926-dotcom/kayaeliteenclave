@@ -20,6 +20,7 @@ import {
 } from "lucide-react";
 import { SignOutButton } from "@/components/auth/SignOutButton";
 import NotificationCenter from "@/components/admin/NotificationCenter";
+import { GlobalSearch } from "@/components/admin/GlobalSearch";
 
 export default async function AdminLayout({
   children,
@@ -102,6 +103,8 @@ export default async function AdminLayout({
         <div className="p-6 border-t border-slate-100 bg-white/80 backdrop-blur-xl">
           <Link 
             href="/"
+            target="_blank"
+            rel="noopener noreferrer"
             className="flex items-center justify-between px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 hover:border-[#D4AF37]/50 transition-all group mb-4 shadow-sm hover:shadow-md"
           >
             <div className="flex items-center gap-3">
@@ -122,14 +125,7 @@ export default async function AdminLayout({
         {/* Top Header */}
         <header className="h-24 border-b border-slate-200 bg-white/80 backdrop-blur-md sticky top-0 z-40 flex items-center justify-between px-10 shadow-[0_2px_12px_rgba(0,0,0,0.01)]">
           <div className="flex items-center gap-6 flex-1">
-            <div className="relative w-96 group">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-[#D4AF37] transition-colors" size={18} />
-              <input 
-                type="text" 
-                placeholder="Search CRM intelligence..." 
-                className="w-full bg-slate-50 border border-slate-200 rounded-full py-2.5 pl-12 pr-4 text-sm focus:outline-none focus:border-[#D4AF37]/50 focus:bg-white focus:shadow-lg focus:shadow-[#D4AF37]/5 transition-all text-[#0F172A] placeholder:text-slate-400"
-              />
-            </div>
+            <GlobalSearch />
           </div>
 
           <div className="flex items-center gap-8">

@@ -15,33 +15,31 @@ interface Notification {
 
 export default function NotificationCenter() {
   const [isOpen, setIsOpen] = useState(false);
-  const [notifications, setNotifications] = useState<Notification[]>([
-    {
-      id: "1",
-      title: "New High-Value Lead",
-      message: "Siddharth Verma expressed interest in 4BHK Villa.",
-      type: "lead",
-      is_read: false,
-      created_at: new Date().toISOString()
-    },
-    {
-      id: "2",
-      title: "Appointment Confirmed",
-      message: "Dr. Rajesh has confirmed the site visit for Sunday.",
-      type: "appointment",
-      is_read: false,
-      created_at: new Date(Date.now() - 3600000).toISOString()
-    }
-  ]);
+  const [notifications, setNotifications] = useState<Notification[]>([]);
+  
+  useEffect(() => {
+    fetch('/api/admin/notifications')
+      .then(res => res.json())
+      .then(data => {
+        if (data.notifications) setNotifications(data.notifications);
+      })
+      .catch(console.error);
+  }, []);
 
   const unreadCount = notifications.filter(n => !n.is_read).length;
 
-  const markAsRead = (id: string) => {
-    setNotifications(notifications.map(n => n.id === id ? { ...n, is_read: true } : n));
+  const markAsRead = async (id: string) => {
+    try {
+      await fetch(`/api/admin/notifications/${id}`, { method: 'PUT' });
+      setNotifications(notifications.map(n => n.id === id ? { ...n, is_read: true } : n));
+    } catch (e) { console.error(e); }
   };
 
-  const removeNotification = (id: string) => {
-    setNotifications(notifications.filter(n => n.id !== id));
+  const removeNotification = async (id: string) => {
+    try {
+      await fetch(`/api/admin/notifications/${id}`, { method: 'DELETE' });
+      setNotifications(notifications.filter(n => n.id !== id));
+    } catch (e) { console.error(e); }
   };
 
   const getIcon = (type: string) => {

@@ -47,9 +47,20 @@ export async function submitLeadAction(formData: FormData) {
     while (attempts < maxAttempts) {
       try {
         attempts++;
+        const newLead = await sql`
+          INSERT INTO leads (name, email, phone, budget)
+          VALUES (${name}, ${email}, ${phone}, ${budget})
+          RETURNING id
+        `;
+
         await sql`
-          INSERT INTO leads (name, email, phone, budget, message)
-          VALUES (${name}, ${email}, ${phone}, ${budget}, ${message})
+          INSERT INTO notifications (title, message, type)
+          VALUES ('New High-Value Lead', ${name + ' expressed interest.'}, 'lead')
+        `;
+
+        await sql`
+          INSERT INTO activity_logs (action, event, description, type, entity_id)
+          VALUES ('Created', 'Inquiry Capture', ${name + ' submitted interest.'}, 'lead', ${newLead[0].id})
         `;
         break; // Success!
       } catch (err: any) {
@@ -64,6 +75,7 @@ export async function submitLeadAction(formData: FormData) {
 
     logToFile("REVALIDATING ADMIN PATH...");
     revalidatePath("/admin/leads");
+    revalidatePath("/admin");
     
     logToFile("--- LEAD SUBMISSION COMPLETE ---");
     return { success: true };

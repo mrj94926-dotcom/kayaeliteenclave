@@ -21,43 +21,59 @@ export default async function AdminDashboard() {
   const totalLeadsRes = await sql`SELECT COUNT(*)::int as count FROM leads`;
   const totalLeads = totalLeadsRes[0].count;
   
+  const activeLeadsRes = await sql`SELECT COUNT(*)::int as count FROM leads WHERE status != 'Closed'`;
+  const activeLeads = activeLeadsRes[0].count;
+
+  const siteVisitsRes = await sql`SELECT COUNT(*)::int as count FROM appointments`;
+  const siteVisits = siteVisitsRes[0].count;
+
+  const closedLeadsRes = await sql`SELECT COUNT(*)::int as count FROM leads WHERE status = 'Closed'`;
+  const closedLeads = closedLeadsRes[0].count;
+  const conversionRate = totalLeads > 0 ? ((closedLeads / totalLeads) * 100).toFixed(1) : "0.0";
+
   const recentLeads = await sql`
     SELECT * FROM leads 
     ORDER BY created_at DESC 
     LIMIT 5
   `;
 
+  const recentLogs = await sql`
+    SELECT * FROM activity_logs
+    ORDER BY created_at DESC
+    LIMIT 4
+  `;
+
   const stats = [
     { 
       label: "Total Leads", 
-      value: totalLeads, 
+      value: totalLeads.toString(), 
       icon: Users, 
-      change: "+12.5%", 
+      change: "Live", 
       trend: "up",
       description: "Total registered interest"
     },
     { 
       label: "Active Inquiries", 
-      value: "24", 
+      value: activeLeads.toString(), 
       icon: MessageSquare, 
-      change: "+4.2%", 
+      change: "Live", 
       trend: "up",
       description: "Awaiting follow-up"
     },
     { 
       label: "Site Visits", 
-      value: "8", 
+      value: siteVisits.toString(), 
       icon: Calendar, 
-      change: "+18%", 
+      change: "Live", 
       trend: "up",
-      description: "Scheduled this month"
+      description: "Scheduled appointments"
     },
     { 
       label: "Conversion Rate", 
-      value: "3.2%", 
+      value: `${conversionRate}%`, 
       icon: Activity, 
-      change: "-1.5%", 
-      trend: "down",
+      change: "Live", 
+      trend: totalLeads > 0 && closedLeads > 0 ? "up" : "down",
       description: "Lead to customer ratio"
     },
   ];
@@ -192,29 +208,26 @@ export default async function AdminDashboard() {
           <h3 className="text-2xl font-serif text-[#0F172A] mb-1">Audit Log</h3>
           <p className="text-[10px] text-slate-400 uppercase tracking-[0.2em] font-black mb-10">Strategic system events</p>
           <div className="space-y-8 relative before:absolute before:left-[11px] before:top-2 before:bottom-2 before:w-[2px] before:bg-slate-100">
-            {[
-              { time: "2m ago", event: "Inquiry Capture", desc: "Siddharth Verma submitted interest for 4BHK Waterfront.", type: "lead" },
-              { time: "45m ago", event: "Booking Confirmation", desc: "Villa tour scheduled with Dr. Rajesh for Sunday.", type: "appointment" },
-              { time: "2h ago", event: "Portfolio Subscription", desc: "Investor newsletter signup via primary gateway.", type: "mail" },
-              { time: "5h ago", event: "Lead Status Elevation", desc: "Priya Malhotra successfully marked as 'Priority Lead'.", type: "update" },
-            ].map((activity, i) => (
-              <div key={i} className="relative pl-10 group">
+            {recentLogs.length > 0 ? recentLogs.map((activity: any, i: number) => (
+              <div key={activity.id} className="relative pl-10 group">
                 <div className="absolute left-0 top-1 w-6 h-6 rounded-full bg-white border-2 border-slate-100 flex items-center justify-center z-10 shadow-sm group-hover:border-[#D4AF37] transition-colors">
                   <div className={`w-2 h-2 rounded-full ${i === 0 ? "bg-[#D4AF37] animate-pulse" : "bg-slate-300"}`} />
                 </div>
                 <div>
                   <div className="flex items-center justify-between mb-1">
-                    <h4 className="text-sm font-bold text-[#0F172A] group-hover:text-[#D4AF37] transition-colors">{activity.event}</h4>
-                    <span className="text-[10px] text-slate-400 font-black uppercase tracking-widest">{activity.time}</span>
+                    <h4 className="text-sm font-bold text-[#0F172A] group-hover:text-[#D4AF37] transition-colors">{activity.event || activity.action}</h4>
+                    <span className="text-[10px] text-slate-400 font-black uppercase tracking-widest">{new Date(activity.created_at).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</span>
                   </div>
-                  <p className="text-xs text-slate-500 leading-relaxed font-medium">{activity.desc}</p>
+                  <p className="text-xs text-slate-500 leading-relaxed font-medium">{activity.description}</p>
                 </div>
               </div>
-            ))}
+            )) : (
+              <div className="text-center text-slate-400 text-xs py-4">No recent activity.</div>
+            )}
           </div>
-          <button className="w-full mt-10 py-4 bg-slate-50 border border-slate-100 rounded-2xl text-[10px] uppercase tracking-widest font-black text-slate-400 hover:bg-[#0F172A] hover:text-white transition-all shadow-sm">
+          <Link href="/admin/logs" className="block w-full mt-10 py-4 bg-slate-50 border border-slate-100 rounded-2xl text-[10px] text-center uppercase tracking-widest font-black text-slate-400 hover:bg-[#0F172A] hover:text-white transition-all shadow-sm">
             Access Complete Audit Trail
-          </button>
+          </Link>
         </div>
       </div>
     </div>

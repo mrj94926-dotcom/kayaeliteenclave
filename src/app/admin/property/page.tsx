@@ -1,14 +1,12 @@
+import { sql } from "@/lib/db";
 import { Building2, Plus, Search, Filter, Home, Layout, Trash2, Edit3, Image as ImageIcon, MapPin } from "lucide-react";
 
 export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
 
-const properties = [
-  { id: "1", name: "The Waterfront Villa", type: "4BHK Luxury", status: "Active", price: "₹8.5 Cr", location: "Sector 45, Waterfront" },
-  { id: "2", name: "Emerald Heights", type: "3BHK Premium", status: "Active", price: "₹4.2 Cr", location: "Sector 12, Highlands" },
-  { id: "3", name: "The Penthouse Elite", type: "Penthouse", status: "Draft", price: "₹12.0 Cr", location: "Downtown Enclave" },
-];
+export default async function AdminPropertyPage() {
+  const properties = await sql`SELECT * FROM properties ORDER BY created_at DESC`;
 
-export default function AdminPropertyPage() {
   return (
     <div className="space-y-10">
       {/* Header Area */}
@@ -46,8 +44,8 @@ export default function AdminPropertyPage() {
                 </span>
               </div>
               <div className="absolute bottom-6 left-6 text-white">
-                <p className="text-xs font-black uppercase tracking-widest opacity-80 mb-1">{prop.type}</p>
-                <h3 className="text-xl font-serif">{prop.name}</h3>
+                <p className="text-xs font-black uppercase tracking-widest opacity-80 mb-1">{prop.description || "Premium Asset"}</p>
+                <h3 className="text-xl font-serif">{prop.title}</h3>
               </div>
             </div>
 
